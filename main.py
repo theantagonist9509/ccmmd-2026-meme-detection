@@ -1,6 +1,5 @@
-def main():
-    print("Hello from miso-ai!")
+import torch
+import miso_utils.datasets
 
-
-if __name__ == "__main__":
-    main()
+print(miso_utils.datasets.TestingFunction())
+print(torch.cuda.is_available())
