@@ -8,6 +8,9 @@ wheels/
 
 # Virtual environments
 .venv
-dev-20260312T144106Z-3-001/
-train-20260312T145300Z-3-001/
 .env
+
+# Folders
+train-20260312T145300Z-3-001/
+dev-20260312T144106Z-3-001/
+weights/
