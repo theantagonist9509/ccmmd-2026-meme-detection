@@ -23,11 +23,51 @@ from miso_utils.datasets import create_train_dataset, EmbeddedMisoDataset,create
 
 # %%
 # Global Configurations
-MODEL_NAME = "bert-base-uncased"
+MODEL_NAME = "clip_image"
 DATASET_PATH = os.getenv("VAL_PATH")
 SAVE_PATH = f"./datasets/{MODEL_NAME}/val.pt"
 BATCH_SIZE = 128
 DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+SAVE_PATH
+# %%
+import torch
+from PIL import Image
+import open_clip
+device = "cuda" if torch.cuda.is_available() else "cpu"
+
+clip_model, _, preprocess = open_clip.create_model_and_transforms('ViT-B-32', pretrained='laion2b_s34b_b79k', precision='fp32')
+clip_model = clip_model.to(device) 
+clip_tokenizer = open_clip.get_tokenizer('ViT-B-32')
+
+
+class ClipWrapperText(nn.Module):
+
+    def __init__(self):
+        super().__init__()
+        self.tokenizer = clip_tokenizer
+        self.clip_model = clip_model
+        self.device = "cuda" if torch.cuda.is_available() else "cpu"
+
+    def forward(self, batch):
+        text_tokens = clip_tokenizer(batch['transcription']).to(device)
+        txt_emb = clip_model.encode_text(text_tokens)
+        txt_emb /= txt_emb.norm(dim=-1, keepdim=True)
+        return txt_emb
+
+class ClipWrapperImage(nn.Module):
+
+    def __init__(self):
+        super().__init__()
+        self.tokenizer = clip_tokenizer
+        self.clip_model = clip_model
+        self.device = "cuda" if torch.cuda.is_available() else "cpu"
+
+    def forward(self, batch):
+        images = batch['img'].to(device)
+        img_emb = clip_model.encode_image(images)
+        img_emb /= img_emb.norm(dim=-1, keepdim=True)
+        return img_emb
+
 
 # %%
 class BertWrapper(nn.Module):
@@ -52,10 +92,10 @@ class BertWrapper(nn.Module):
         return outputs.pooler_output
 
 # %%
-model = BertWrapper(model_name=MODEL_NAME)
+model = ClipWrapperImage()
 
 # %%
-miso_train = create_val_dataset(path=DATASET_PATH, mode="text")
+miso_train = create_val_dataset(path=DATASET_PATH, mode="image")
 
 # %%
 embedded_dataset = EmbeddedMisoDataset(
