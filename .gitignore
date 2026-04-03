@@ -16,7 +16,7 @@ dev-20260312T144106Z-3-001/
 weights/
 train/
 
-src/swen3vl-miso-lora/
+src/qwen3vl-miso-lora/
 src/qwen3vl-open-schematics-components-lora/
 
 train-20260312T145300Z-3-001.zip
