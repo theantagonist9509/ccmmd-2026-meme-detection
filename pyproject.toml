@@ -5,17 +5,24 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = "==3.11.5"
 dependencies = [
+    "accelerate>=1.13.0",
+    "datasets>=4.8.4",
     "dotenv>=0.9.9",
+    "ipykernel>=7.2.0",
     "ipywidgets>=8.1.8",
+    "jupyter-client>=8.8.0",
+    "jupyter-core>=5.9.1",
     "matplotlib>=3.10.8",
     "open-clip-torch>=3.3.0",
     "pandas>=3.0.1",
+    "peft>=0.18.1",
     "scikit-learn>=1.8.0",
     "seaborn>=0.13.2",
     "torch>=2.10.0",
     "torchvision>=0.25.0",
     "tqdm>=4.67.3",
-    "transformers>=5.3.0",
+    "transformers==4.57.0",
+    "trl>=0.29.1",
 ]
 
 [[tool.uv.index]]
