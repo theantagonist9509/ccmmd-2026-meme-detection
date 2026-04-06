@@ -20,7 +20,7 @@ src/qwen3vl-miso-lora/
 src/qwen3vl-open-schematics-components-lora/
 
 train-20260312T145300Z-3-001.zip
-src/temp
+**/temp
 datasets
 
 
