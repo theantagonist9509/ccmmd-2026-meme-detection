@@ -22,7 +22,7 @@ messages = [
         "content": [
             {
                 "type": "image",
-                "image": "https://qianwen-res.oss-cn-beijing.aliyuncs.com/Qwen-VL/assets/demo.jpeg",
+                "image": "temp/demo.jpeg",
             },
             {"type": "text", "text": "Describe this image."},
         ],
